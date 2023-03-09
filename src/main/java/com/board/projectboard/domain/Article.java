@@ -33,7 +33,7 @@ public class Article extends BaseEntity {
 
     @Setter @Column(nullable = false)
     String title; // 제목
-    @Setter @Column(nullable = false, length = 10000)
+    @Setter @Column(nullable = false, length = 65535)
     private String content; // 본문
     @Setter
     private String hashtag; // 해시태그
