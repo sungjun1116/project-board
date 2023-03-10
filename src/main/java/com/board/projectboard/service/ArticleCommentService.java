@@ -1,7 +1,6 @@
 package com.board.projectboard.service;
 
 import com.board.projectboard.dto.ArticleCommentDto;
-import com.board.projectboard.dto.ArticleCommentUpdateDto;
 import com.board.projectboard.repository.ArticleCommentRepository;
 import com.board.projectboard.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +30,7 @@ public class ArticleCommentService {
 
     }
 
-    public void updateArticleComment(final long articleCommentId, final ArticleCommentUpdateDto dto) {
+    public void updateArticleComment(final ArticleCommentDto dto) {
 
     }
 
