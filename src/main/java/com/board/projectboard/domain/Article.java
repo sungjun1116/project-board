@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
@@ -31,6 +32,9 @@ public class Article extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter @ManyToOne(optional = false)
+    private UserAccount userAccount; // 유저 정보 (ID)
+
     @Setter @Column(nullable = false)
     String title; // 제목
     @Setter @Column(nullable = false, length = 65535)
@@ -39,20 +43,21 @@ public class Article extends BaseEntity {
     private String hashtag; // 해시태그
 
     @ToString.Exclude
-    @OrderBy("id")
+    @OrderBy("createdAt DESC")
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
     protected Article() {}
 
-    private Article(final String title, final String content, final String hashtag) {
+    private Article(final UserAccount userAccount, final String title, final String content, final String hashtag) {
+        this.userAccount = userAccount;
         this.title = title;
         this.content = content;
         this.hashtag = hashtag;
     }
 
-    public static Article of(final String title, final String content, final String hashtag) {
-        return new Article(title, content, hashtag);
+    public static Article of(final UserAccount userAccount, final String title, final String content, final String hashtag) {
+        return new Article(userAccount, title, content, hashtag);
     }
 
     @Override
