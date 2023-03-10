@@ -28,19 +28,24 @@ public class ArticleComment extends BaseEntity {
 
     @Setter @ManyToOne(optional = false)
     private Article article; // 게시글 (ID)
+
+    @Setter @ManyToOne(optional = false)
+    private UserAccount userAccount; // 유저 정보 (ID)
+
     @Setter @Column(nullable = false, length = 2000)
     private String content; // 본문
 
     protected ArticleComment() {
     }
 
-    private ArticleComment(final Article article, final String content) {
+    private ArticleComment(final Article article, final UserAccount userAccount, final String content) {
         this.article = article;
+        this.userAccount = userAccount;
         this.content = content;
     }
 
-    public static ArticleComment of(final Article article, final String content) {
-        return new ArticleComment(article, content);
+    public static ArticleComment of(final Article article, final UserAccount userAccount, final String content) {
+        return new ArticleComment(article, userAccount, content);
     }
 
     @Override
