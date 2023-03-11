@@ -90,11 +90,13 @@ class ArticleControllerTest {
         then(paginationService).should().getPaginationBarNumbers(pageable.getPageNumber(), Page.empty().getTotalPages());
     }
 
-    @DisplayName("[view] [GET] 게시글 상세 페이지 - 정상 호출")
+    @DisplayName("[view] [GET] 게시글 페이지 - 정상 호출")
     @Test
     void givenNothing_whenRequestingArticleView_thenReturnsArticleView() throws Exception {
         Long articleId = 1L;
+        Long totalCount = 1L;
         given(articleService.getArticle(articleId)).willReturn(createArticleWithCommentsDto());
+        given(articleService.getArticleCount()).willReturn(totalCount);
 
         mvc.perform(get("/articles/" + articleId))
                 .andExpect(status().isOk())
