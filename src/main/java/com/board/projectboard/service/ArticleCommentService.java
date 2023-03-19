@@ -51,7 +51,7 @@ public class ArticleCommentService {
         }
     }
 
-    public void deleteArticleComment(final long articleCommentId) {
-        articleCommentRepository.deleteById(articleCommentId);
+    public void deleteArticleComment(final Long articleCommentId, final String userId) {
+        articleCommentRepository.deleteByIdAndUserAccount_UserId(articleCommentId, userId);
     }
 }
