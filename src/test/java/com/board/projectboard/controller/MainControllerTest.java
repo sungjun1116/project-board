@@ -1,6 +1,7 @@
 package com.board.projectboard.controller;
 
-import com.board.projectboard.config.SecurityConfig;
+import com.board.projectboard.config.TestSecurityConfig;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -12,7 +13,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@Import(SecurityConfig.class)
+@DisplayName("View 루트 컨트롤러")
+@Import(TestSecurityConfig.class)
 @WebMvcTest(MainController.class)
 class MainControllerTest {
     private final MockMvc mvc;
@@ -21,6 +23,7 @@ class MainControllerTest {
         this.mvc = mvc;
     }
 
+    @DisplayName("[view][GET] 루트 페이지 -> 게시글 리스트 (게시판) 페이지 Redirection")
     @Test
     void givenNothing_whenRequestingRootPage_thenRedirectsToArticlesPage() throws Exception {
         mvc.perform(get("/"))
