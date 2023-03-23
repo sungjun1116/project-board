@@ -34,7 +34,7 @@ Spring Boot
 
 ## 데모 페이지
 
-(작성 중)
+* https://project-board-lake.herokuapp.com/
 
 ## Release Note
 특정 PR의 소스코드를 좀 더 편리하게 확인하고 싶다면 릴리즈 탭을 확인해 보세요.
