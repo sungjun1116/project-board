@@ -20,12 +20,22 @@ import java.util.Objects;
 })
 @Entity
 public class UserAccount extends BaseEntity {
+    @Id
+    @Column(length = 50)
+    private String userId;
 
-    @Id @Column(length = 50) private String userId;
-    @Setter @Column(nullable = false) private String userPassword;
+    @Setter
+    @Column(nullable = false)
+    private String userPassword;
 
-    @Setter @Column(length = 100) private String email;
-    @Setter @Column(length = 100) private String nickname;
+    @Setter
+    @Column(length = 100)
+    private String email;
+
+    @Setter
+    @Column(length = 100)
+    private String nickname;
+
     @Setter
     private String memo;
 
@@ -47,11 +57,11 @@ public class UserAccount extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof UserAccount userAccount)) return false;
-        return userId != null && userId.equals(userAccount.userId);
+        return this.getUserId() != null && this.getUserId().equals(userAccount.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId);
+        return Objects.hash(this.getUserId());
     }
 }

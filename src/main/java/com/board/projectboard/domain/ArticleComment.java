@@ -24,16 +24,21 @@ import java.util.Objects;
 })
 @Entity
 public class ArticleComment extends BaseEntity {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter @ManyToOne(optional = false)
+    @Setter
+    @ManyToOne(optional = false)
     private Article article; // 게시글 (ID)
 
-    @Setter @ManyToOne(optional = false) @JoinColumn(name = "userId")
+    @Setter
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "userId")
     private UserAccount userAccount; // 유저 정보 (ID)
 
-    @Setter @Column(nullable = false, length = 2000)
+    @Setter
+    @Column(nullable = false, length = 2000)
     private String content; // 본문
 
     protected ArticleComment() {
@@ -53,11 +58,11 @@ public class ArticleComment extends BaseEntity {
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (!(o instanceof ArticleComment that)) return false;
-        return id != null && id.equals(that.id);
+        return this.getId() != null && this.getId().equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(this.getId());
     }
 }
