@@ -30,16 +30,22 @@ import java.util.Set;
 })
 @Entity
 public class Article extends BaseEntity {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter @ManyToOne(optional = false) @JoinColumn(name = "userId")
+    @Setter
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "userId")
     private UserAccount userAccount; // 유저 정보 (ID)
 
-    @Setter @Column(nullable = false)
+    @Setter
+    @Column(nullable = false)
     String title; // 제목
-    @Setter @Column(nullable = false, length = 65535)
+    @Setter
+    @Column(nullable = false, length = 65535)
     private String content; // 본문
+
     @Setter
     private String hashtag; // 해시태그
 
