@@ -71,12 +71,12 @@ public class Article extends BaseEntity {
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (!(o instanceof Article article)) return false;
-        return id != null && id.equals(article.id); // id != null 코드를 추가함으로써 아직 영속화가 되지 않은 객체라면(=id를 부여받지 않은 상태)는 동등성 검사 탈락 처리
+        return this.getId() != null && this.getId().equals(article.getId()); // id != null 코드를 추가함으로써 아직 영속화가 되지 않은 객체라면(=id를 부여받지 않은 상태)는 동등성 검사 탈락 처리
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(this.getId());
     }
 
 }

@@ -58,11 +58,11 @@ public class ArticleComment extends BaseEntity {
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (!(o instanceof ArticleComment that)) return false;
-        return id != null && id.equals(that.id);
+        return this.getId() != null && this.getId().equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(this.getId());
     }
 }
