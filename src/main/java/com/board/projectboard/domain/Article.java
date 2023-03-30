@@ -1,21 +1,11 @@
 package com.board.projectboard.domain;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Index;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OrderBy;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -24,7 +14,6 @@ import java.util.Set;
 @ToString(callSuper = true)
 @Table(indexes = {
         @Index(columnList = "title"),
-        @Index(columnList = "hashtag"),
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy")
 })
@@ -35,8 +24,8 @@ public class Article extends BaseEntity {
     private Long id;
 
     @Setter
-    @ManyToOne(optional = false)
     @JoinColumn(name = "userId")
+    @ManyToOne(optional = false)
     private UserAccount userAccount; // 유저 정보 (ID)
 
     @Setter
@@ -46,8 +35,14 @@ public class Article extends BaseEntity {
     @Column(nullable = false, length = 65535)
     private String content; // 본문
 
-    @Setter
-    private String hashtag; // 해시태그
+    @ToString.Exclude
+    @JoinTable(
+            name = "article_hashtag",
+            joinColumns = @JoinColumn(name = "articleId"),
+            inverseJoinColumns = @JoinColumn(name = "hashtagId")
+    )
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Hashtag> hashtags = new LinkedHashSet<>();
 
     @ToString.Exclude
     @OrderBy("createdAt DESC")
@@ -56,15 +51,26 @@ public class Article extends BaseEntity {
 
     protected Article() {}
 
-    private Article(final UserAccount userAccount, final String title, final String content, final String hashtag) {
+    private Article(final UserAccount userAccount, final String title, final String content) {
         this.userAccount = userAccount;
         this.title = title;
         this.content = content;
-        this.hashtag = hashtag;
     }
 
-    public static Article of(final UserAccount userAccount, final String title, final String content, final String hashtag) {
-        return new Article(userAccount, title, content, hashtag);
+    public static Article of(final UserAccount userAccount, final String title, final String content) {
+        return new Article(userAccount, title, content);
+    }
+
+    public void addHashtag(Hashtag hashtag) {
+        this.getHashtags().add(hashtag);
+    }
+
+    public void addHashtags(Collection<Hashtag> hashtags) {
+        this.getHashtags().addAll(hashtags);
+    }
+
+    public void clearHashtags() {
+        this.getHashtags().clear();
     }
 
     @Override

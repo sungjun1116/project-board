@@ -33,8 +33,8 @@ public class ArticleComment extends BaseEntity {
     private Article article; // 게시글 (ID)
 
     @Setter
-    @ManyToOne(optional = false)
     @JoinColumn(name = "userId")
+    @ManyToOne(optional = false)
     private UserAccount userAccount; // 유저 정보 (ID)
 
     @Setter
