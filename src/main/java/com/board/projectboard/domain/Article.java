@@ -32,7 +32,7 @@ public class Article extends BaseEntity {
     @Column(nullable = false)
     String title; // 제목
     @Setter
-    @Column(nullable = false, length = 65535)
+    @Column(nullable = false, length = 10000)
     private String content; // 본문
 
     @ToString.Exclude
