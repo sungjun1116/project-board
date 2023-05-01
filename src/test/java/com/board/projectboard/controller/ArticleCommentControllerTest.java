@@ -56,11 +56,11 @@ class ArticleCommentControllerTest {
         willDoNothing().given(articleCommentService).saveArticleComment(any(ArticleCommentDto.class));
 
         mvc.perform(
-                        post("/comments/new")
-                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                                .content(formDataEncoder.encode(request))
-                                .with(csrf())
-                )
+                post("/comments/new")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .content(formDataEncoder.encode(request))
+                        .with(csrf())
+        )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/articles/" + articleId))
                 .andExpect(redirectedUrl("/articles/" + articleId));
@@ -78,11 +78,11 @@ class ArticleCommentControllerTest {
         willDoNothing().given(articleCommentService).deleteArticleComment(articleCommentId, userId);
 
         mvc.perform(
-                        post("/comments/" + articleCommentId + "/delete")
-                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                                .content(formDataEncoder.encode(Map.of("articleId", articleId)))
-                                .with(csrf())
-                )
+                post("/comments/" + articleCommentId + "/delete")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .content(formDataEncoder.encode(Map.of("articleId", articleId)))
+                        .with(csrf())
+        )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/articles/" + articleId))
                 .andExpect(redirectedUrl("/articles/" + articleId));
@@ -101,11 +101,11 @@ class ArticleCommentControllerTest {
 
         // When & Then
         mvc.perform(
-                        post("/comments/new")
-                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                                .content(formDataEncoder.encode(request))
-                                .with(csrf())
-                )
+                post("/comments/new")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .content(formDataEncoder.encode(request))
+                        .with(csrf())
+        )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/articles/" + articleId))
                 .andExpect(redirectedUrl("/articles/" + articleId));
