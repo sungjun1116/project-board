@@ -33,6 +33,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .requestMatchers("/error").permitAll()
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/",
@@ -48,6 +49,7 @@ public class SecurityConfig {
                                 .userService(oAuth2UserService)
                         )
                 )
+
                 .build();
     }
 
